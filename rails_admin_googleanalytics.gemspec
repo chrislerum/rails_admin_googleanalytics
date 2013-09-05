@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Google Analytics tab for Rails Admin"
   s.description = "Show some basic statistics from within the Rails Admin interface."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc", "highcharts.js"]
 
   s.add_dependency "rails", "~> 3.2.13"
   s.add_dependency "google-api-client", ">= 0.5"
