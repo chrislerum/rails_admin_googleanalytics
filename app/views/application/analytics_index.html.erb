@@ -1,0 +1,45 @@
+<div id="chart"></div>
+<h4>Pageviews</h4>
+<p><%= @pageviews %></p>
+<h4>Unique Pageviews</h4>
+<p><%= @unique_pageviews %></p>
+<h4>Total Pageviews</h4>
+<p><%= @total_pageviews %></p>
+<h4>Total Unique Pageviews</h4>
+<p><%= @total_unique_pageviews %></p>
+
+<script>
+  $(function () {
+    $('#chart').highcharts({
+      chart: {
+      },
+      title: {
+        text: 'Last 30 days'
+      },
+      xAxis: {
+        type: 'datetime'
+      },
+      yAxis: {
+        title: {
+          text: 'Pageviews'
+        }
+      },
+      plotOptions: {
+        series: {
+          pointStart: new Date().setDate(new Date().getDate()-30),
+          pointInterval: 24 * 3600 * 1000 // one day
+        }
+      },
+
+      series: [{
+        name: 'Pageviews',
+        data: <%= @pageviews_data %>
+      }, {
+        name: 'Unique Pageviews',
+        data: <%= @unique_pageviews_data %>
+      }]
+    });
+  });
+</script>
+
+<%= javascript_include_tag 'rails_admin/highcharts' %>

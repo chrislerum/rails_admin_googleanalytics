@@ -1,0 +1,11 @@
+en:
+  admin:
+    actions:
+      analytics_index:
+        menu: 'Analytics'
+        breadcrumb: 'Analytics'
+        title: 'Analytics'
+      analytics_show:
+        menu: 'Analytics'
+        breadcrumb: 'Analytics'
+        title: 'Analytics'
