@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = RailsAdminGoogleanalytics::VERSION
   s.authors     = ["Richard Peng"]
   s.email       = ["richard@richardpeng.com"]
-  s.homepage    = "richardpeng.com"
+  s.homepage    = "http://richardpeng.com"
   s.summary     = "Google Analytics tab for Rails Admin"
   s.description = "Show some basic statistics from within the Rails Admin interface."
 
