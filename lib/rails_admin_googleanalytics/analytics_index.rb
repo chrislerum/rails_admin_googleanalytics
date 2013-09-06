@@ -116,12 +116,16 @@ module RailsAdmin
               'ids' => "ga:" + profileID,
               'start-date' => startDate,
               'end-date' => endDate,
-              'metrics' => "ga:pageviews,ga:uniquePageviews"
+              'metrics' => "ga:pageviews,ga:uniquePageviews",
+              'dimensions' => 'ga:fullReferrer',
+              'sort' => '-ga:pageviews',
+              'max-results' => 15
             })
 
             totalData = totalVisitCount.data.totalsForAllResults
             @total_pageviews = totalData['ga:pageviews']
             @total_unique_pageviews = totalData['ga:uniquePageviews']
+            @total_referrers = totalVisitCount.data.rows
 
             render :action => @action.template_name
           end

@@ -118,12 +118,16 @@ module RailsAdmin
               'start-date' => startDate,
               'end-date' => endDate,
               'metrics' => "ga:pageviews,ga:uniquePageviews",
-              'filters' => "ga:pagePath=~/videos/#{@object.id}/*;ga:pagePath!@/auth;ga:pagePath!@/request_access"
+              'filters' => "ga:pagePath=~/videos/#{@object.id}/*;ga:pagePath!@/auth;ga:pagePath!@/request_access",
+              'dimensions' => 'ga:fullReferrer',
+              'sort' => '-ga:pageviews',
+              'max-results' => 15
             })
 
             totalData = totalVisitCount.data.totalsForAllResults
             @total_pageviews = totalData['ga:pageviews']
             @total_unique_pageviews = totalData['ga:uniquePageviews']
+            @total_referrers = totalVisitCount.data.rows
 
             render :action => @action.template_name
           end
