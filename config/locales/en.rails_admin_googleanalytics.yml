@@ -5,7 +5,11 @@ en:
         menu: 'Analytics'
         breadcrumb: 'Analytics'
         title: 'Analytics'
-      analytics_show:
+      analytics_video_index:
+        menu: 'Analytics'
+        breadcrumb: 'Analytics'
+        title: 'Analytics'
+      analytics_video_show:
         menu: 'Analytics'
         breadcrumb: 'Analytics'
         title: 'Analytics'

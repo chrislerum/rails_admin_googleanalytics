@@ -8,7 +8,7 @@
 <h4>Total Unique Pageviews</h4>
 <p><%= @total_unique_pageviews %></p>
 
-<h3>Top Pages</h3>
+<h3>Top Videos</h3>
 <table class="table table-striped table-condensed">
     <tr>
         <th>Page Title</th>
@@ -16,10 +16,10 @@
         <th>Pageviews</th>
         <th>Unique Pageviews</th>
     </tr>
-    <% @top_pages.each do |page| %>
+    <% @top_videos.each do |video| %>
         <tr>
-            <% page.each do |value| %>
-                <td><%= value %></td>
+            <% video.each do |value| %>
+            <td><%= value %></td>
             <% end %>
         </tr>
     <% end %>

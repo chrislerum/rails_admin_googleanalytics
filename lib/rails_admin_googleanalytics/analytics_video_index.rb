@@ -6,7 +6,7 @@ require 'google/api_client'
 module RailsAdmin
   module Config
     module Actions
-      class AnalyticsIndex < RailsAdmin::Config::Actions::Base
+      class AnalyticsVideoIndex < RailsAdmin::Config::Actions::Base
         RailsAdmin::Config::Actions.register(self)
         include RailsAdmin::Config::Proxyable
         include RailsAdmin::Config::Configurable
@@ -43,12 +43,12 @@ module RailsAdmin
 
         # Is the action acting on the root level (Example: /admin/contact)
         register_instance_option :root? do
-          true
+          false
         end
 
         # Is the action on a model scope (Example: /admin/team/export)
         register_instance_option :collection? do
-          false
+          true
         end
 
         # Is the action on an object scope (Example: /admin/team/1/edit)
@@ -93,13 +93,18 @@ module RailsAdmin
             startDate = (Date.today - 30).strftime("%Y-%m-%d")
             endDate = Date.today.strftime("%Y-%m-%d")
 
+            # Only show stats for videos belonging to the logged in user
+            videoFilter = current_user.video_ids.collect{|video_id| 'ga:pagePath=~/videos/'+video_id.to_s+'/*'}.join(',')
+            videoFilter += ';ga:pagePath!@/auth;ga:pagePath!@/request_access'
+
             visitCount = client.execute(:api_method => analytics.data.ga.get, :parameters => {
                 'ids' => "ga:" + profileID,
                 'start-date' => startDate,
                 'end-date' => endDate,
                 'dimensions' => "ga:month,ga:day",
                 'metrics' => "ga:pageviews,ga:uniquePageviews",
-                'sort' => "ga:month,ga:day"
+                'sort' => "ga:month,ga:day",
+                'filters' => videoFilter
             })
 
             data = visitCount.data.rows.transpose
@@ -119,7 +124,8 @@ module RailsAdmin
                 'metrics' => "ga:pageviews,ga:uniquePageviews",
                 'dimensions' => 'ga:fullReferrer',
                 'sort' => '-ga:pageviews',
-                'max-results' => 15
+                'max-results' => 15,
+                'filters' => videoFilter
             })
 
             totalData = totalVisitCount.data.totalsForAllResults
@@ -127,17 +133,18 @@ module RailsAdmin
             @total_unique_pageviews = totalData['ga:uniquePageviews']
             @total_referrers = totalVisitCount.data.rows
 
-            topPagesCount = client.execute(:api_method => analytics.data.ga.get, :parameters => {
+            topVideosCount = client.execute(:api_method => analytics.data.ga.get, :parameters => {
                 'ids' => "ga:" + profileID,
                 'start-date' => startDate,
                 'end-date' => endDate,
                 'metrics' => "ga:pageviews,ga:uniquePageviews",
                 'dimensions' => 'ga:pageTitle,ga:pagePath',
                 'sort' => '-ga:pageviews',
-                'max-results' => 15
+                'max-results' => 15,
+                'filters' => videoFilter
             })
 
-            @top_pages = topPagesCount.data.rows
+            @top_videos = topVideosCount.data.rows
 
             render :action => @action.template_name
           end
@@ -155,7 +162,7 @@ module RailsAdmin
 
         # For Cancan and the like
         register_instance_option :authorization_key do
-          :analytics_index
+          :analytics_video_index
         end
 
         # List of methods allowed. Note that you are responsible for correctly handling them in :controller block

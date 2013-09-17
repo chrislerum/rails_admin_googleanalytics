@@ -6,7 +6,7 @@ require 'google/api_client'
 module RailsAdmin
   module Config
     module Actions
-      class AnalyticsShow < RailsAdmin::Config::Actions::Base
+      class AnalyticsVideoShow < RailsAdmin::Config::Actions::Base
         RailsAdmin::Config::Actions.register(self)
         include RailsAdmin::Config::Proxyable
         include RailsAdmin::Config::Configurable
@@ -145,7 +145,7 @@ module RailsAdmin
 
         # For Cancan and the like
         register_instance_option :authorization_key do
-          :analytics_show
+          :analytics_video_show
         end
 
         # List of methods allowed. Note that you are responsible for correctly handling them in :controller block
