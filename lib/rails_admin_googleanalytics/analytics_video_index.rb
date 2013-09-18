@@ -94,8 +94,13 @@ module RailsAdmin
             endDate = Date.today.strftime("%Y-%m-%d")
 
             # Only show stats for videos belonging to the logged in user
-            videoFilter = current_user.video_ids.collect{|video_id| 'ga:pagePath=~/videos/'+video_id.to_s}.join(',')
-            videoFilter += ';ga:pagePath!@/auth;ga:pagePath!@/request_access'
+            if current_user.video_ids.length > 0
+              videoFilter = current_user.video_ids.collect{|video_id| 'ga:pagePath=~/videos/'+video_id.to_s}.join(',')
+              videoFilter += ';ga:pagePath!@/auth;ga:pagePath!@/request_access'
+            else
+              videoFilter = 'ga:pagePath=~/videos/user_has_no_videos'
+            end
+
 
             visitCount = client.execute(:api_method => analytics.data.ga.get, :parameters => {
                 'ids' => "ga:" + profileID,
