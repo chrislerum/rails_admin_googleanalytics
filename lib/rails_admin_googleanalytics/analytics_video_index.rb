@@ -94,7 +94,7 @@ module RailsAdmin
             endDate = Date.today.strftime("%Y-%m-%d")
 
             # Only show stats for videos belonging to the logged in user
-            videoFilter = current_user.video_ids.collect{|video_id| 'ga:pagePath=~/videos/'+video_id.to_s+'/*'}.join(',')
+            videoFilter = current_user.video_ids.collect{|video_id| 'ga:pagePath=~/videos/'+video_id.to_s}.join(',')
             videoFilter += ';ga:pagePath!@/auth;ga:pagePath!@/request_access'
 
             visitCount = client.execute(:api_method => analytics.data.ga.get, :parameters => {
@@ -144,9 +144,9 @@ module RailsAdmin
                 'filters' => videoFilter
             })
 
-            @top_videos = topVideosCount.data.rows
+            @top_pages = topVideosCount.data.rows
 
-            render :action => @action.template_name
+            render :action => :analytics
           end
         end
 

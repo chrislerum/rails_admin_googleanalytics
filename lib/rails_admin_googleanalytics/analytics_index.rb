@@ -139,7 +139,7 @@ module RailsAdmin
 
             @top_pages = topPagesCount.data.rows
 
-            render :action => @action.template_name
+            render :action => :analytics
           end
         end
 

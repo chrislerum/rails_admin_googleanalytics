@@ -129,7 +129,7 @@ module RailsAdmin
             @total_unique_pageviews = totalData['ga:uniquePageviews']
             @total_referrers = totalVisitCount.data.rows
 
-            render :action => @action.template_name
+            render :action => :analytics
           end
         end
 
