@@ -145,7 +145,7 @@ module RailsAdmin
                 'metrics' => "ga:pageviews,ga:uniquePageviews",
                 'dimensions' => 'ga:pageTitle,ga:pagePath',
                 'sort' => '-ga:pageviews',
-                'max-results' => 15,
+                'max-results' => 10000,
                 'filters' => videoFilter
             })
 
