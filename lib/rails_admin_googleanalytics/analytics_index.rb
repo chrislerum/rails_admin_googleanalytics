@@ -112,6 +112,10 @@ module RailsAdmin
 
             startDate = "2013-08-12"
 
+            @start_year = '2013'
+            @start_month = '7'
+            @start_day = '12'
+
             totalVisitCount = client.execute(:api_method => analytics.data.ga.get, :parameters => {
                 'ids' => "ga:" + profileID,
                 'start-date' => startDate,
