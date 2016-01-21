@@ -97,15 +97,15 @@ module RailsAdmin
               'ids' => "ga:" + profileID,
               'start-date' => startDate,
               'end-date' => endDate,
-              'dimensions' => "ga:month,ga:day",
+              'dimensions' => "ga:month,ga:day,ga:year",
               'metrics' => "ga:pageviews,ga:uniquePageviews",
-              'sort' => "ga:month,ga:day",
+              'sort' => "ga:year,ga:month,ga:day",
               'filters' => "ga:pagePath=~/videos/#{@object.id}/*;ga:pagePath!@/auth;ga:pagePath!@/request_access"
             })
 
             data = visitCount.data.rows.transpose
-            @pageviews_data = data[2].collect(&p(:to_i))
-            @unique_pageviews_data = data[3].collect(&p(:to_i))
+            @pageviews_data = data[3].collect(&p(:to_i))
+            @unique_pageviews_data = data[4].collect(&p(:to_i))
 
             totalData = visitCount.data.totalsForAllResults
             @pageviews = totalData['ga:pageviews']
