@@ -63,7 +63,7 @@
       },
       plotOptions: {
         series: {
-          pointStart: new Date().setDate(new Date().getDate()-31),
+          pointStart: Date.UTC(<%= @start_year %>, <%= @start_month %>, <%= @start_day %>),
           pointInterval: 24 * 3600 * 1000 // one day
         }
       },

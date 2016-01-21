@@ -90,7 +90,11 @@ module RailsAdmin
 
             analytics = client.discovered_api('analytics','v3')
 
-            startDate = (Date.today - 30).strftime("%Y-%m-%d")
+            the_startDate = (Date.today - 30)
+            startDate = the_startDate.strftime("%Y-%m-%d")
+            @start_year = the_startDate.strftime("%Y")
+            @start_month = the_startDate.strftime("%m").to_i - 1
+            @start_day = the_startDate.strftime("%d")
             endDate = Date.today.strftime("%Y-%m-%d")
 
             visitCount = client.execute(:api_method => analytics.data.ga.get, :parameters => {
